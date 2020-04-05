@@ -52,7 +52,7 @@ function buildLogoutResponse() {
   ].join('\r\n');
 }
 
-function retsLogin(loginUrl = 'https://mockrets.com/login', method = 'GET', customLoginResponse = null, useQOP = true) {
+function retsLogin(loginUrl = 'https://mockrets.com/login', customLoginResponse = null, useQOP = true) {
   const url = new URL(loginUrl);
   const loginResponse = customLoginResponse || buildLoginResponse(url.origin);
 
@@ -69,47 +69,24 @@ function retsLogin(loginUrl = 'https://mockrets.com/login', method = 'GET', cust
     'opaque="5ccc069c403ebaf9f0171e9517f40e41"',
   ].join(' ');
 
-  if (method.toUpperCase() === 'GET') {
-    return nock(url.origin)
-    .get('/login')
-    .query(true)
-    .reply(401, 'Unauthorized', {
-      'www-authenticate': useQOP ? qopHeader : nonQopHeader,
-    })
-    .get('/login')
-    .query(true)
-    .reply(200, loginResponse, {
-      'set-cookie': [
-        'RETS-Session-ID=1234567890; Path=/',
-      ],
-      'content-type': 'text/xml',
-    });
-  }
   return nock(url.origin)
-  .post('/login')
-  .query(true)
+  .get('/login')
   .reply(401, 'Unauthorized', {
     'www-authenticate': useQOP ? qopHeader : nonQopHeader,
   })
-  .post('/login')
+  .get('/login')
   .query(true)
   .reply(200, loginResponse, {
     'set-cookie': [
       'RETS-Session-ID=1234567890; Path=/',
     ],
+    'content-type': 'text/xml',
   });
 }
 
-function addRetsLogout(nockedRequest, method = 'GET') {
-  if (method.toUpperCase() === 'GET') {
-    return nockedRequest
-    .get('/logout')
-    .query(true)
-    .reply(200, buildLogoutResponse());
-  }
+function addRetsLogout(nockedRequest) {
   return nockedRequest
-  .post('/logout')
-  .query(true)
+  .get('/logout')
   .reply(200, buildLogoutResponse());
 }
 

@@ -66,7 +66,7 @@ describe('RETSClient', function() {
         nock.disableNetConnect();
 
         let requestNo = 0;
-        const nockedRequest = helpers.retsLogin(configuration.loginUrl, 'GET', undefined, false);
+        const nockedRequest = helpers.retsLogin(configuration.loginUrl, undefined, false);
         nockedRequest.on('request', (req, interceptor) => {
           if (requestNo === 0) {
             requestNo += 1;
@@ -89,7 +89,7 @@ describe('RETSClient', function() {
         nock.disableNetConnect();
 
         let requestNo = 0;
-        const nockedRequest = helpers.retsLogin(configuration.loginUrl, 'GET', undefined, true);
+        const nockedRequest = helpers.retsLogin(configuration.loginUrl, undefined, true);
         nockedRequest.on('request', (req, interceptor) => {
           if (requestNo === 0) {
             requestNo += 1;
@@ -112,7 +112,6 @@ describe('RETSClient', function() {
         nock.disableNetConnect();
         nock(baseUrl)
         .get('/login')
-        .query(true)
         .reply(200, helpers.buildLoginResponse(baseUrl), {
           'set-cookie': [
             'RETS-Session-ID=987654321; Path=/',
@@ -130,7 +129,6 @@ describe('RETSClient', function() {
         nock.disableNetConnect();
         nock(baseUrl)
         .get('/login')
-        .query(true)
         .reply(200, helpers.buildLoginResponse(baseUrl));
 
         const client = new RETSClient(configuration, log);
