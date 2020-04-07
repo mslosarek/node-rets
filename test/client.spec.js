@@ -58,6 +58,7 @@ describe('RETSClient', function() {
     if (!nock.isActive()) {
       nock.activate();
     }
+    sinon.stub(log);
   });
 
   describe('#login', function() {
@@ -79,7 +80,7 @@ describe('RETSClient', function() {
             expect(headers.response).to.eq(expectedResponse);
           }
         });
-        const client = new RETSClient(configuration, log);
+        const client = new RETSClient(configuration);
         return client.login();
       });
     });
@@ -102,7 +103,7 @@ describe('RETSClient', function() {
             expect(headers.response).to.eq(expectedResponse);
           }
         });
-        const client = new RETSClient(configuration, log);
+        const client = new RETSClient(configuration);
         return client.login();
       });
     });
@@ -118,7 +119,7 @@ describe('RETSClient', function() {
           ],
         });
 
-        const client = new RETSClient(configuration, log);
+        const client = new RETSClient(configuration);
         await client.login();
         expect(client.sessionId).to.eq('987654321');
       });
@@ -131,7 +132,7 @@ describe('RETSClient', function() {
         .get('/login')
         .reply(200, helpers.buildLoginResponse(baseUrl));
 
-        const client = new RETSClient(configuration, log);
+        const client = new RETSClient(configuration);
         await client.login();
         expect(client.sessionId).to.eq(null);
       });
@@ -140,7 +141,6 @@ describe('RETSClient', function() {
     context('when http.request throws an error', function() {
       it('throws an error', async function() {
         sinon.stub(http, 'request').throws(new Error('Unknown Error'));
-        sinon.stub(log, 'error');
         const client = new RETSClient(configuration, log);
         const result = await client.login().catch(e => e);
         expect(result).to.be.an('error').and.matches(/Unknown Error/);
@@ -153,7 +153,7 @@ describe('RETSClient', function() {
       it('does not make an http request', async function() {
         const stub = sinon.stub(http, 'request');
 
-        const client = new RETSClient(configuration, log);
+        const client = new RETSClient(configuration);
         const result = await client.logout();
         expect(result).to.eq(false);
         expect(stub.called).to.eq(false);
@@ -165,7 +165,7 @@ describe('RETSClient', function() {
         nock.disableNetConnect();
         helpers.retsLogin(configuration.loginUrl);
 
-        const client = new RETSClient(configuration, log);
+        const client = new RETSClient(configuration);
 
         await client.login();
 
@@ -183,9 +183,8 @@ describe('RETSClient', function() {
         nock.disableNetConnect();
         const nockedRequest = helpers.retsLogin(configuration.loginUrl);
         helpers.addRetsLogout(nockedRequest);
-        sinon.stub(log, 'info');
 
-        const client = new RETSClient(configuration, log);
+        const client = new RETSClient(configuration);
 
         await client.login();
 
@@ -200,13 +199,11 @@ describe('RETSClient', function() {
         nock.disableNetConnect();
         const nockedRequest = helpers.retsLogin(configuration.loginUrl);
         helpers.addRetsLogout(nockedRequest);
-        sinon.stub(log, 'info');
 
-        const client = new RETSClient(configuration, log);
+        const client = new RETSClient(configuration);
 
         await client.login();
         sinon.stub(http, 'request').throws(new Error('Unknown Error'));
-        sinon.stub(log, 'error');
 
         const result = await client.logout().catch(e => e);
         expect(result).to.be.an('error').and.matches(/Unknown Error/);
