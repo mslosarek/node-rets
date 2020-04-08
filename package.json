@@ -39,7 +39,7 @@
   "dependencies": {
     "fast-xml-parser": "^3.16.0",
     "formidable": "^2.0.0-canary.20200402.2",
-    "needle": "git+https://github.com/mslosarek/needle.git",
+    "needle": "git+https://github.com/tomas/needle.git",
     "underscore": "^1.10.2",
     "underscore.string": "^3.3.5",
     "winston": "^3.2.1",
