@@ -2,6 +2,7 @@ const { expect } = require('chai');
 
 const utils = require('../lib/utils.js');
 const { DEFAULTS } = require('../lib/constants.js');
+const helpers = require('./helpers.js');
 
 const { md5 } = utils;
 
@@ -209,6 +210,45 @@ describe('Utils', function() {
             'RETS-UA-Authorization': uaHeader(DEFAULTS.USER_AGENT, userAgentPassword, undefined, DEFAULTS.RETS_VERSION),
           },
         });
+      });
+    });
+  });
+
+  describe('#ParseRetsMetadata', function() {
+    context('when an array of elements', function() {
+      it('returns a parsed JSON', async function() {
+        const result = await utils.ParseRetsMetadata(helpers.data.metadataClassXML);
+        expect(result).to.deep.eq(helpers.data.metadataClassJSON);
+      });
+    });
+
+    context('when no metadata root element', function() {
+      it('throws an error', async function() {
+        const metadataContent = '<?xml version="1.0" ?><RETS ReplyCode="0" ReplyText="V2.6.0 761: Success"><METADATA></METADATA></RETS>';
+        const result = await utils.ParseRetsMetadata(metadataContent).catch(e => e);
+        expect(result).to.be.an('error');
+      });
+    });
+
+    context('when multiple root elements', function() {
+      it('return an array of elements', async function() {
+        const metadataContent = `<?xml version="1.0" ?>
+        <RETS ReplyCode="0" ReplyText="V2.6.0 761: Success">
+          <METADATA>
+            <METADATA-CLASS Resource="Property">
+              <Class>
+                <ClassName>ALL</ClassName>
+              </Class>
+            </METADATA-CLASS>
+            <METADATA-CLASS Resource="Fake">
+              <Class>
+                <ClassName>ALL</ClassName>
+              </Class>
+            </METADATA-CLASS>
+          </METADATA>
+        </RETS>`;
+        const result = await utils.ParseRetsMetadata(metadataContent);
+        expect(result).to.have.lengthOf(2);
       });
     });
   });

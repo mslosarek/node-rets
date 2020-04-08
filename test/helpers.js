@@ -1,5 +1,14 @@
+const { readFileSync } = require('fs');
+const { dirname, join } = require('path');
 const { URL } = require('url');
 const nock = require('nock');
+
+function readDataFileDataFile(filename) {
+  return readFileSync(join(dirname(__filename), './data', filename), 'utf8');
+}
+
+const metadataClassXML = readDataFileDataFile('metadata_class.xml');
+const metadataClassJSON = JSON.parse(readDataFileDataFile('metadata_class.json'));
 
 function buildLoginResponse(baseUrl = 'https://mockrets.com') {
   return [
@@ -95,4 +104,8 @@ module.exports = {
   buildLogoutResponse,
   retsLogin,
   addRetsLogout,
+  data: {
+    metadataClassXML,
+    metadataClassJSON,
+  },
 };
