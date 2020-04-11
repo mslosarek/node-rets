@@ -5,8 +5,8 @@
   "main": "index.js",
   "scripts": {
     "test": "mocha --recursive",
+    "nyc": "nyc mocha --recursive",
     "lint": "eslint lib/ test/ --ext .js",
-    "nyc": "nyc npm test",
     "coveralls": "nyc npm test && nyc report --reporter=text-lcov | coveralls"
   },
   "repository": {

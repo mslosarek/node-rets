@@ -9,6 +9,10 @@ function readDataFileDataFile(filename) {
 
 const metadataClassXML = readDataFileDataFile('metadata_class.xml');
 const metadataClassJSON = JSON.parse(readDataFileDataFile('metadata_class.json'));
+const propertiesXML = readDataFileDataFile('properties.xml');
+const propertiesJSON = JSON.parse(readDataFileDataFile('properties.json'));
+const propertyJSON = JSON.parse(readDataFileDataFile('property.json'));
+const propertyFlatJSON = JSON.parse(readDataFileDataFile('property_flat.json'));
 
 function buildLoginResponse(baseUrl = 'https://mockrets.com') {
   return [
@@ -107,5 +111,9 @@ module.exports = {
   data: {
     metadataClassXML,
     metadataClassJSON,
+    propertiesXML,
+    propertiesJSON,
+    propertyJSON,
+    propertyFlatJSON,
   },
 };
