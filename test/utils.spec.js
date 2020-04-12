@@ -1,5 +1,6 @@
 const { expect } = require('chai');
 const sinon = require('sinon');
+const { omit } = require('underscore');
 
 const utils = require('../lib/utils.js');
 const { DEFAULTS } = require('../lib/constants.js');
@@ -439,6 +440,31 @@ describe('Utils', function() {
         const result = await utils.ParseRetsResponseXML(errorXML).catch(e => e);
         expect(result).to.be.an('error');
         expect(result.message).to.match(/An error occurred/);
+      });
+    });
+  });
+
+  describe('#ParseMultipartRetsResponse', function() {
+    const buff = Buffer.from(helpers.readDataFile('multipart.buf', 'binary'), 'hex');
+
+    context('when receiving a multipart buffer', function() {
+      it('generates the correct response', async function() {
+        const result = await utils.ParseMultipartRetsResponse(buff, 'simple boundary');
+        const resultImages = result.map(r => r.data);
+        const resultWithoutImage = result.map(r => omit(r, 'data'));
+
+        expect(resultWithoutImage).to.deep.eq(helpers.data.multipartJSON);
+        expect(resultImages[0].length).to.eq(helpers.readDataFile('image_1.jpg', 'binary').length);
+        expect(resultImages[1].length).to.eq(helpers.readDataFile('image_2.jpg', 'binary').length);
+      });
+    });
+
+    context('when an error while processing a multipart buffer', function() {
+      it('throws an error', async function() {
+        const result = await utils.ParseMultipartRetsResponse(buff, 'incorrect boundary').catch(e => e);
+
+        expect(result).to.be.an('error');
+        expect(result.message).to.eq('Error Processing Multipart Response');
       });
     });
   });

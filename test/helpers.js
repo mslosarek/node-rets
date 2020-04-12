@@ -3,16 +3,17 @@ const { dirname, join } = require('path');
 const { URL } = require('url');
 const nock = require('nock');
 
-function readDataFileDataFile(filename) {
-  return readFileSync(join(dirname(__filename), './data', filename), 'utf8');
+function readDataFile(filename, encoding) {
+  return readFileSync(join(dirname(__filename), './data', filename), encoding);
 }
 
-const metadataClassXML = readDataFileDataFile('metadata_class.xml');
-const metadataClassJSON = JSON.parse(readDataFileDataFile('metadata_class.json'));
-const propertiesXML = readDataFileDataFile('properties.xml');
-const propertiesJSON = JSON.parse(readDataFileDataFile('properties.json'));
-const propertyJSON = JSON.parse(readDataFileDataFile('property.json'));
-const propertyFlatJSON = JSON.parse(readDataFileDataFile('property_flat.json'));
+const metadataClassXML = readDataFile('metadata_class.xml', 'utf8');
+const metadataClassJSON = JSON.parse(readDataFile('metadata_class.json', 'utf8'));
+const propertiesXML = readDataFile('properties.xml', 'utf8');
+const propertiesJSON = JSON.parse(readDataFile('properties.json', 'utf8'));
+const propertyJSON = JSON.parse(readDataFile('property.json', 'utf8'));
+const propertyFlatJSON = JSON.parse(readDataFile('property_flat.json', 'utf8'));
+const multipartJSON = JSON.parse(readDataFile('multipart.json', 'utf8'));
 
 function buildLoginResponse(baseUrl = 'https://mockrets.com') {
   return [
@@ -115,5 +116,7 @@ module.exports = {
     propertiesJSON,
     propertyJSON,
     propertyFlatJSON,
+    multipartJSON,
   },
+  readDataFile,
 };
