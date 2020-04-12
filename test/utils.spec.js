@@ -44,6 +44,8 @@ const expectedResponse = {
   parse_response: false,
 };
 
+const buff = Buffer.from(helpers.readDataFile('multipart.buf', 'binary'), 'hex');
+
 describe('Utils', function() {
   afterEach(function() {
     sinon.restore();
@@ -445,8 +447,6 @@ describe('Utils', function() {
   });
 
   describe('#ParseMultipartRetsResponse', function() {
-    const buff = Buffer.from(helpers.readDataFile('multipart.buf', 'binary'), 'hex');
-
     context('when receiving a multipart buffer', function() {
       it('generates the correct response', async function() {
         const result = await utils.ParseMultipartRetsResponse(buff, 'simple boundary');
@@ -465,6 +465,41 @@ describe('Utils', function() {
 
         expect(result).to.be.an('error');
         expect(result.message).to.eq('Error Processing Multipart Response');
+      });
+    });
+  });
+
+  describe('#ParseRetsObjectResponse', function() {
+    const response = {
+      headers: {
+        'content-type': 'multipart/parallel; boundary="simple boundary"',
+      },
+      raw: buff,
+    };
+
+    context('when a multipart parallel response', function() {
+      it('returns the correct response', async function() {
+        const result = await utils.ParseRetsObjectResponse(response);
+        const resultImages = result.map(r => r.data);
+        const resultWithoutImage = result.map(r => omit(r, 'data'));
+
+        expect(resultWithoutImage).to.deep.eq(helpers.data.multipartJSON);
+        expect(resultImages[0].length).to.eq(helpers.readDataFile('image_1.jpg', 'binary').length);
+        expect(resultImages[1].length).to.eq(helpers.readDataFile('image_2.jpg', 'binary').length);
+      });
+    });
+
+    context('when not a multipart parallel response', function() {
+      it('returns original response', async function() {
+        const nonResponse = {
+          headers: {
+            'content-type': 'text/plain',
+          },
+          body: 'Hello World',
+        };
+
+        const result = await utils.ParseRetsObjectResponse(nonResponse);
+        expect(result).to.deep.eq(nonResponse);
       });
     });
   });
