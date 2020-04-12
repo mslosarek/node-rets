@@ -1,0 +1,97 @@
+<?xml version="1.0" ?>
+<RETS ReplyCode="0" ReplyText="V2.6.0 761: Success">
+  <METADATA>
+    <METADATA-CLASS Resource="Property" Version="2.0.2233" Date="2020-04-07T03:54:12Z">
+      <Class>
+        <ClassName>ALL</ClassName>
+        <StandardName>SAMPLE All</StandardName>
+        <VisibleName>SAMPLE All</VisibleName>
+        <Description>SAMPLE_ALL</Description>
+        <TableVersion>2.0.2233</TableVersion>
+        <TableDate>2020-04-07T03:54:12Z</TableDate>
+        <UpdateVersion>2.0.2233</UpdateVersion>
+        <UpdateDate>2020-04-07T03:54:12Z</UpdateDate>
+        <ClassTimeStamp>ModificationTimestamp</ClassTimeStamp>
+        <DeletedFlagField></DeletedFlagField>
+        <DeletedFlagValue></DeletedFlagValue>
+        <HasKeyIndex>1</HasKeyIndex>
+        <OffsetSupport>1</OffsetSupport>
+      </Class>
+      <Class>
+        <ClassName>RES</ClassName>
+        <StandardName>SAMPLE Single-Family</StandardName>
+        <VisibleName>SAMPLE Single-Family</VisibleName>
+        <Description>SAMPLE_RES</Description>
+        <TableVersion>2.0.2233</TableVersion>
+        <TableDate>2020-04-07T03:54:12Z</TableDate>
+        <UpdateVersion>2.0.2233</UpdateVersion>
+        <UpdateDate>2020-04-07T03:54:12Z</UpdateDate>
+        <ClassTimeStamp>ModificationTimestamp</ClassTimeStamp>
+        <DeletedFlagField></DeletedFlagField>
+        <DeletedFlagValue></DeletedFlagValue>
+        <HasKeyIndex>1</HasKeyIndex>
+        <OffsetSupport>1</OffsetSupport>
+      </Class>
+      <Class>
+        <ClassName>COM</ClassName>
+        <StandardName>SAMPLE Commercial</StandardName>
+        <VisibleName>SAMPLE Commercial</VisibleName>
+        <Description>SAMPLE_COM</Description>
+        <TableVersion>2.0.2233</TableVersion>
+        <TableDate>2020-04-07T03:54:12Z</TableDate>
+        <UpdateVersion>2.0.2233</UpdateVersion>
+        <UpdateDate>2020-04-07T03:54:12Z</UpdateDate>
+        <ClassTimeStamp>ModificationTimestamp</ClassTimeStamp>
+        <DeletedFlagField></DeletedFlagField>
+        <DeletedFlagValue></DeletedFlagValue>
+        <HasKeyIndex>1</HasKeyIndex>
+        <OffsetSupport>1</OffsetSupport>
+      </Class>
+      <Class>
+        <ClassName>CON</ClassName>
+        <StandardName>SAMPLE Condominium</StandardName>
+        <VisibleName>SAMPLE Condominium</VisibleName>
+        <Description>SAMPLE_CON</Description>
+        <TableVersion>2.0.2233</TableVersion>
+        <TableDate>2020-04-07T03:54:12Z</TableDate>
+        <UpdateVersion>2.0.2233</UpdateVersion>
+        <UpdateDate>2020-04-07T03:54:12Z</UpdateDate>
+        <ClassTimeStamp>ModificationTimestamp</ClassTimeStamp>
+        <DeletedFlagField></DeletedFlagField>
+        <DeletedFlagValue></DeletedFlagValue>
+        <HasKeyIndex>1</HasKeyIndex>
+        <OffsetSupport>1</OffsetSupport>
+      </Class>
+      <Class>
+        <ClassName>MUL</ClassName>
+        <StandardName>SAMPLE Multi-Family</StandardName>
+        <VisibleName>SAMPLE Multi-Family</VisibleName>
+        <Description>SAMPLE_MUL</Description>
+        <TableVersion>2.0.2233</TableVersion>
+        <TableDate>2020-04-07T03:54:12Z</TableDate>
+        <UpdateVersion>2.0.2233</UpdateVersion>
+        <UpdateDate>2020-04-07T03:54:12Z</UpdateDate>
+        <ClassTimeStamp>ModificationTimestamp</ClassTimeStamp>
+        <DeletedFlagField></DeletedFlagField>
+        <DeletedFlagValue></DeletedFlagValue>
+        <HasKeyIndex>1</HasKeyIndex>
+        <OffsetSupport>1</OffsetSupport>
+      </Class>
+      <Class>
+        <ClassName>VAC</ClassName>
+        <StandardName>SAMPLE Vacant Land</StandardName>
+        <VisibleName>SAMPLE Vacant Land</VisibleName>
+        <Description>SAMPLE_VAC</Description>
+        <TableVersion>2.0.2233</TableVersion>
+        <TableDate>2020-04-07T03:54:12Z</TableDate>
+        <UpdateVersion>2.0.2233</UpdateVersion>
+        <UpdateDate>2020-04-07T03:54:12Z</UpdateDate>
+        <ClassTimeStamp>ModificationTimestamp</ClassTimeStamp>
+        <DeletedFlagField></DeletedFlagField>
+        <DeletedFlagValue></DeletedFlagValue>
+        <HasKeyIndex>1</HasKeyIndex>
+        <OffsetSupport>1</OffsetSupport>
+      </Class>
+    </METADATA-CLASS>
+  </METADATA>
+</RETS>

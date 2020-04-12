@@ -62,6 +62,43 @@ describe('Utils', function() {
     });
   });
 
+  describe('#UrlSearchParamsToObject', function() {
+    context('when passed a URLSearchParams', function() {
+      it('returns an object', function() {
+        const params = new URLSearchParams();
+        params.append('name', 'Bob Smith');
+        params.append('job', 'Realtor');
+
+        const result = utils.UrlSearchParamsToObject(params);
+        expect(result).to.deep.eq({
+          name: 'Bob Smith',
+          job: 'Realtor',
+        });
+      });
+    });
+  });
+
+  describe('#ClassifyQueryParams', function() {
+    context('when passed an object', function() {
+      it('returns a classified object', function() {
+        const result = utils.ClassifyQueryParams({
+          id: 12345,
+          first_name: 'Bob',
+          last_name: 'Smith',
+          jobTitle: 'Realtor',
+          'start-date': '2000-01-01',
+        });
+        expect(result).to.deep.eq({
+          ID: 12345,
+          FirstName: 'Bob',
+          LastName: 'Smith',
+          JobTitle: 'Realtor',
+          StartDate: '2000-01-01',
+        });
+      });
+    });
+  });
+
   describe('#KeyValueStringToObject', function() {
     context('when nothing passed in', function() {
       it('returns empty object', function() {
@@ -97,6 +134,88 @@ describe('Utils', function() {
       it('returns the correct object', function() {
         const result = utils.KeyValueStringsToObject('a=b\nc=d');
         expect(result).to.deep.eq({ a: 'b', c: 'd' });
+      });
+    });
+  });
+
+  describe('#NormalizeHeaders', function() {
+    context('when passed an object with an ObjectData array', function() {
+      it('produces the correct object', function() {
+        const headers = {
+          'Content-Type': ['image/jpeg'],
+          'Content-Length': ['34565443'],
+          'Content-ID': ['123456789012'],
+          'Object-ID': ['1'],
+          ObjectData: [
+            'ListingID=9876543',
+            'ListingStatus=Active',
+            'PropItemNumber=1',
+          ],
+        };
+        const result = utils.NormalizeHeaders(headers);
+        expect(result).to.deep.eq({
+          ContentType: 'image/jpeg',
+          ContentLength: '34565443',
+          ContentID: '123456789012',
+          ObjectID: '1',
+          ObjectData: {
+            ListingID: '9876543',
+            ListingStatus: 'Active',
+            PropItemNumber: '1',
+          },
+        });
+      });
+    });
+  });
+
+  describe('#NormalizeMatcher', function() {
+    context('when passed a string', function() {
+      it('returns a funcion that tests a RegExp', function() {
+        const result = utils.NormalizeMatcher('Hello');
+        expect(result('hello')).to.eq(true);
+        expect(result('with hello in the middle')).to.eq(true);
+        expect(result('does not contain the work')).to.eq(false);
+      });
+    });
+
+    context('when passed a RegExp', function() {
+      it('returns a funcion that tests the RegExp', function() {
+        const result = utils.NormalizeMatcher(/^Hello$/);
+        expect(result('hello')).to.eq(false);
+        expect(result('Hello')).to.eq(true);
+        expect(result('Hello World')).to.eq(false);
+      });
+    });
+
+    context('when passed a function', function() {
+      it('returns a function that test the key', function() {
+        const result = utils.NormalizeMatcher(key => key.length > 5);
+        expect(result('hello')).to.eq(false);
+        expect(result('Hello World')).to.eq(true);
+      });
+    });
+
+    context('when passed a number', function() {
+      it('returns a function that performs a strict comparison key', function() {
+        const result = utils.NormalizeMatcher(5);
+        expect(result(5)).to.eq(true);
+        expect(result('5')).to.eq(false);
+      });
+    });
+  });
+
+  describe('#FindNested', function() {
+    context('when a nested object is found', function() {
+      it('returns the nested object', function() {
+        const result = utils.FindNested(helpers.data.propertyJSON, 'TotalSqFt');
+        expect(result).to.eq('1991.00');
+      });
+    });
+
+    context('when a nested object is not found', function() {
+      it('returns null', function() {
+        const result = utils.FindNested(helpers.data.propertyJSON, 'UnknownElementKey');
+        expect(result).to.eq(null);
       });
     });
   });

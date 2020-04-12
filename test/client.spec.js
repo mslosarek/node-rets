@@ -1,6 +1,7 @@
 const { expect } = require('chai');
 const sinon = require('sinon');
 const nock = require('nock');
+const { omit } = require('underscore');
 
 const helpers = require('./helpers.js');
 
@@ -207,6 +208,155 @@ describe('RETSClient', function() {
 
         const result = await client.logout().catch(e => e);
         expect(result).to.be.an('error').and.matches(/Unknown Error/);
+      });
+    });
+  });
+
+  describe('#metadata', function() {
+    afterEach(function() {
+      sinon.restore();
+    });
+
+    context('when no arguments are passed', function() {
+      it('returns RESOURCE metadata', async function() {
+        nock.disableNetConnect();
+        const nockedRequest = helpers.retsLogin(configuration.loginUrl);
+        nockedRequest.get('/getmetadata')
+        .query({
+          Type: 'METADATA-RESOURCE',
+          ID: 0,
+          Format: 'STANDARD-XML',
+        })
+        .reply(
+          200,
+          helpers.readDataFile('metadata_resource.xml'),
+          {
+            'Content-Type': 'text/xml',
+          },
+        );
+
+        const client = new RETSClient(configuration);
+        const result = await client.metadata();
+        expect(result).to.deep.eq(helpers.readDataFile('metadata_resource.json', 'utf8', true));
+      });
+    });
+
+    context('when a resource and id passwd in', function() {
+      it('returns the correct metadata', async function() {
+        nock.disableNetConnect();
+        const nockedRequest = helpers.retsLogin(configuration.loginUrl);
+        helpers.addRetsMedataData(nockedRequest);
+
+        const client = new RETSClient(configuration);
+        const result = await client.metadata('CLASS', 'Property');
+        expect(result).to.deep.eq(helpers.readDataFile('metadata_class_property.json', 'utf8', true));
+      });
+    });
+
+    context('when already logged in', function() {
+      it('does not log in again', async function() {
+        nock.disableNetConnect();
+        const nockedRequest = helpers.retsLogin(configuration.loginUrl);
+        helpers.addRetsMedataData(nockedRequest);
+
+        const client = new RETSClient(configuration);
+        const spy = sinon.spy(client, 'login');
+
+        await client.login();
+        await client.metadata('CLASS', 'Property');
+
+        expect(spy.callCount).to.eq(1);
+      });
+    });
+
+    context('when an unknown metadata type', function() {
+      it('throws an error', async function() {
+        const client = new RETSClient(configuration);
+        const result = await client.metadata('Unknown_Resource_Type').catch(e => e);
+        expect(result).to.be.an('error');
+        expect(result.message).to.eq('Invalid Resource Type: Unknown_Resource_Type');
+      });
+    });
+  });
+
+  describe('#search', function() {
+    context('when valid search criteria', function() {
+      it('returns the search results', async function() {
+        const query = '(ModificationTimestamp=2020-03-17T01:19:11+)';
+        const options = {
+          Limit: 2,
+          Offset: 1,
+        };
+
+        nock.disableNetConnect();
+        const nockedRequest = helpers.retsLogin(configuration.loginUrl);
+        helpers.addRetsSearch(nockedRequest, query, options);
+
+        const client = new RETSClient(configuration);
+        const result = await client.search('Property', 'ALL', query, options);
+        expect(result).to.deep.eq(helpers.readDataFile('properties.json', 'utf8', true));
+      });
+    });
+
+    context('when already logged in', function() {
+      it('does not log in again', async function() {
+        const query = '(ModificationTimestamp=2020-03-17T01:19:11+)';
+        const options = {
+          Limit: 2,
+          Offset: 1,
+        };
+
+        nock.disableNetConnect();
+        const nockedRequest = helpers.retsLogin(configuration.loginUrl);
+        helpers.addRetsSearch(nockedRequest, query, options);
+
+        const client = new RETSClient(configuration);
+        const spy = sinon.spy(client, 'login');
+
+        await client.login();
+        await client.search('Property', 'ALL', query, options);
+
+        expect(spy.callCount).to.eq(1);
+      });
+    });
+  });
+
+  describe('#getObject', function() {
+    context('when parameters', function() {
+      it('returns proper results', async function() {
+        const propertyId = '123456789012:1:2';
+
+        nock.disableNetConnect();
+        const nockedRequest = helpers.retsLogin(configuration.loginUrl);
+        helpers.addRetsGetObject(nockedRequest, propertyId);
+
+        const client = new RETSClient(configuration);
+        const result = await client.getObject('Property', 'Photo', propertyId);
+
+        const resultImages = result.map(r => r.data);
+        const resultWithoutImage = result.map(r => omit(r, 'data'));
+
+        expect(resultWithoutImage).to.deep.eq(helpers.data.multipartJSON);
+        expect(resultImages[0].length).to.eq(helpers.readDataFile('image_1.jpg', 'binary').length);
+        expect(resultImages[1].length).to.eq(helpers.readDataFile('image_2.jpg', 'binary').length);
+      });
+    });
+
+    context('when already logged in', function() {
+      it('does not log in again', async function() {
+        const propertyId = '123456789012:1:2';
+
+        nock.disableNetConnect();
+        const nockedRequest = helpers.retsLogin(configuration.loginUrl);
+        helpers.addRetsGetObject(nockedRequest, propertyId);
+
+        const client = new RETSClient(configuration);
+        const spy = sinon.spy(client, 'login');
+
+        await client.login();
+        await client.getObject('Property', 'Photo', propertyId);
+
+        expect(spy.callCount).to.eq(1);
       });
     });
   });

@@ -3,17 +3,13 @@ const { dirname, join } = require('path');
 const { URL } = require('url');
 const nock = require('nock');
 
-function readDataFile(filename, encoding) {
-  return readFileSync(join(dirname(__filename), './data', filename), encoding);
+function readDataFile(filename, encoding, json = false) {
+  const content = readFileSync(join(dirname(__filename), './data', filename), encoding);
+  if (json) {
+    return JSON.parse(content);
+  }
+  return content;
 }
-
-const metadataClassXML = readDataFile('metadata_class.xml', 'utf8');
-const metadataClassJSON = JSON.parse(readDataFile('metadata_class.json', 'utf8'));
-const propertiesXML = readDataFile('properties.xml', 'utf8');
-const propertiesJSON = JSON.parse(readDataFile('properties.json', 'utf8'));
-const propertyJSON = JSON.parse(readDataFile('property.json', 'utf8'));
-const propertyFlatJSON = JSON.parse(readDataFile('property_flat.json', 'utf8'));
-const multipartJSON = JSON.parse(readDataFile('multipart.json', 'utf8'));
 
 function buildLoginResponse(baseUrl = 'https://mockrets.com') {
   return [
@@ -104,19 +100,80 @@ function addRetsLogout(nockedRequest) {
   .reply(200, buildLogoutResponse());
 }
 
+function addRetsMedataData(nockedRequest) {
+  return nockedRequest
+  .get('/getmetadata')
+  .query({
+    Type: 'METADATA-CLASS',
+    ID: 'Property',
+    Format: 'STANDARD-XML',
+  })
+  .reply(
+    200,
+    readDataFile('metadata_class_property.xml'),
+    {
+      'Content-Type': 'text/xml',
+    },
+  );
+}
+
+function addRetsSearch(nockedRequest, query, options) {
+  return nockedRequest
+  .get('/search')
+  .query({
+    ...options,
+    Query: query,
+    SearchType: 'Property',
+    Class: 'ALL',
+    StandardNames: 0,
+    Format: 'STANDARD-XML',
+    QueryType: 'DMQL2',
+    Count: 1,
+  })
+  .reply(
+    200,
+    readDataFile('properties.xml'),
+    {
+      'Content-Type': 'text/xml',
+    },
+  );
+}
+
+function addRetsGetObject(nockedRequest, propertyId) {
+  return nockedRequest
+  .get('/getobject')
+  .query({
+    Resource: 'Property',
+    Type: 'Photo',
+    Location: 0,
+    ObjectData: '*',
+    ID: propertyId,
+  })
+  .reply(
+    200,
+    Buffer.from(readDataFile('multipart.buf', 'binary'), 'hex'),
+    {
+      'Content-Type': 'multipart/parallel; boundary="simple boundary"',
+    },
+  );
+}
+
 module.exports = {
   buildLoginResponse,
   buildLogoutResponse,
   retsLogin,
   addRetsLogout,
+  addRetsMedataData,
+  addRetsSearch,
+  addRetsGetObject,
   data: {
-    metadataClassXML,
-    metadataClassJSON,
-    propertiesXML,
-    propertiesJSON,
-    propertyJSON,
-    propertyFlatJSON,
-    multipartJSON,
+    metadataClassXML: readDataFile('metadata_class.xml', 'utf8'),
+    metadataClassJSON: readDataFile('metadata_class.json', 'utf8', true),
+    propertiesXML: readDataFile('properties.xml', 'utf8'),
+    propertiesJSON: readDataFile('properties.json', 'utf8', true),
+    propertyJSON: readDataFile('property.json', 'utf8', true),
+    propertyFlatJSON: readDataFile('property_flat.json', 'utf8', true),
+    multipartJSON: readDataFile('multipart.json', 'utf8', true),
   },
   readDataFile,
 };
