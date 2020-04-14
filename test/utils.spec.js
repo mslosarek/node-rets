@@ -220,33 +220,6 @@ describe('Utils', function() {
     });
   });
 
-  describe('#GetRetsResponseFromBody', function() {
-    context('when a valid xml string', function() {
-      it('returns the response text', function() {
-        const result = utils.GetRetsResponseFromBody('<RETS><RETS-RESPONSE>Body Text</RETS-RESPONSE></RETS>');
-        expect(result).to.eq('Body Text');
-      });
-    });
-
-    context('when an invalid xml string', function() {
-      it('throws an error', function() {
-        const fn = () => {
-          utils.GetRetsResponseFromBody('Invalid XML');
-        };
-        expect(fn).to.throw('Unable to parse XML');
-      });
-    });
-
-    context('when an xml does not contain rets response', function() {
-      it('throws an error', function() {
-        const fn = () => {
-          utils.GetRetsResponseFromBody('<html><body></body></html>');
-        };
-        expect(fn).to.throw('Unable to find RETS-RESPONSE');
-      });
-    });
-  });
-
   describe('#GetRetsSessionIdFromCookies', function() {
     context('when not an object', function() {
       it('returns null', function() {

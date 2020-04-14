@@ -109,6 +109,19 @@ describe('RETSClient', function() {
       });
     });
 
+    context('when a 401 error is return', function() {
+      it('throws an error with the code', async function() {
+        nock.disableNetConnect();
+        nock(baseUrl)
+        .get('/login')
+        .reply(401, 'Unauthorized');
+
+        const client = new RETSClient(configuration);
+        const result = await client.login().catch(e => e);
+        expect(result).to.be.an('error');
+      });
+    });
+
     context('when a RETS-Session-ID is returned in set-cookie', function() {
       it('sets the sessionId on the client', async function() {
         nock.disableNetConnect();

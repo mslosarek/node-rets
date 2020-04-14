@@ -37,7 +37,6 @@
     "sinon": "^9.0.1"
   },
   "dependencies": {
-    "fast-xml-parser": "^3.16.0",
     "formidable": "^2.0.0-canary.20200402.2",
     "needle": "git+https://github.com/tomas/needle.git",
     "underscore": "^1.10.2",
