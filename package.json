@@ -1,6 +1,6 @@
 {
   "name": "node-rets",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "Simplified RETS client with minimal dependencies",
   "main": "index.js",
   "scripts": {
@@ -43,5 +43,12 @@
     "underscore.string": "^3.3.5",
     "winston": "^3.2.1",
     "xml2js": "^0.4.23"
-  }
+  },
+  "files": [
+    "lib/*",
+    "package.json",
+    "package-lock.json",
+    "README.md",
+    "License.txt"
+  ]
 }
