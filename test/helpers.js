@@ -50,16 +50,16 @@ function buildLoginResponse(baseUrl = 'https://mockrets.com') {
   ].join('\r\n');
 }
 
-function buildLogoutResponse() {
+function buildLogoutResponse(includeConnectedTime = true) {
   return [
     '<?xml version="1.0" ?>',
     '<RETS ReplyCode="0" ReplyText="V2.6.0 761: Success">',
     '<RETS-RESPONSE>',
-    'ConnectTime=10',
+    (includeConnectedTime ? 'ConnectTime=10' : null),
     'SignOffMessage=Goodbye Treutel Group',
     '</RETS-RESPONSE>',
     '</RETS>',
-  ].join('\r\n');
+  ].filter(l => l).join('\r\n');
 }
 
 function retsLogin(loginUrl = 'https://mockrets.com/login', customLoginResponse = null, useQOP = true) {
@@ -94,10 +94,10 @@ function retsLogin(loginUrl = 'https://mockrets.com/login', customLoginResponse 
   });
 }
 
-function addRetsLogout(nockedRequest) {
+function addRetsLogout(nockedRequest, includeConnectedTime = true) {
   return nockedRequest
   .get('/logout')
-  .reply(200, buildLogoutResponse());
+  .reply(200, buildLogoutResponse(includeConnectedTime));
 }
 
 function addRetsMedataData(nockedRequest) {

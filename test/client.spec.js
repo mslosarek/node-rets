@@ -207,7 +207,6 @@ describe('RETSClient', function() {
       });
     });
 
-
     context('when http.request throws an error', function() {
       it('throws an error', async function() {
         nock.disableNetConnect();
@@ -221,6 +220,38 @@ describe('RETSClient', function() {
 
         const result = await client.logout().catch(e => e);
         expect(result).to.be.an('error').and.matches(/Unknown Error/);
+      });
+    });
+
+    context('when logout includes connection time', function() {
+      it('loggs the time', async function() {
+        nock.disableNetConnect();
+        const nockedRequest = helpers.retsLogin(configuration.loginUrl);
+        helpers.addRetsLogout(nockedRequest);
+
+        const infoStub = log.info;
+
+        const client = new RETSClient(configuration);
+
+        await client.login();
+        const result = await client.logout();
+        expect(infoStub.getCall(1).args[0]).to.match(/Connected Time/);
+      });
+    });
+
+    context('when logout does not include connection time', function() {
+      it('does not log a connected time message', async function() {
+        nock.disableNetConnect();
+        const nockedRequest = helpers.retsLogin(configuration.loginUrl);
+        helpers.addRetsLogout(nockedRequest, false);
+
+        const infoStub = log.info;
+
+        const client = new RETSClient(configuration);
+
+        await client.login();
+        const result = await client.logout();
+        expect(infoStub.getCall(1).args[0]).to.match(/Sign Off Message/);
       });
     });
   });
