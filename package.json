@@ -1,13 +1,14 @@
 {
   "name": "node-rets",
-  "version": "0.2.3",
+  "version": "0.2.4",
   "description": "Simplified RETS client with minimal dependencies",
   "main": "lib/index.js",
   "scripts": {
     "test": "mocha --recursive",
     "nyc": "nyc mocha --recursive",
     "lint": "eslint lib/ test/ --ext .js",
-    "coveralls": "nyc npm test && nyc report --reporter=text-lcov | coveralls"
+    "coveralls": "nyc npm test && nyc report --reporter=text-lcov | coveralls",
+    "postversion": "git push --tags"
   },
   "repository": {
     "type": "git",
