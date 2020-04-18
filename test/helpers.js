@@ -177,6 +177,7 @@ module.exports = {
     propertyJSON: readDataFile('property.json', 'utf8', true),
     propertyFlatJSON: readDataFile('property_flat.json', 'utf8', true),
     multipartJSON: readDataFile('multipart.json', 'utf8', true),
+    multipartXMLJSON: readDataFile('multipart_xml.json', 'utf8', true),
   },
   readDataFile,
 };

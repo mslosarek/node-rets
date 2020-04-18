@@ -25,6 +25,7 @@ module.exports = {
     'no-unused-vars': ['error', { argsIgnorePattern: 'next' }],
     'space-before-function-paren': ['error', { anonymous: 'never', named: 'never', asyncArrow: 'always' }],
     'class-methods-use-this': [0],
+    'no-else-return': ['error', { allowElseIf: true }],
   },
   overrides: [
     {

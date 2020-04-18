@@ -1,0 +1,70 @@
+[
+  {
+    "headers": {
+      "ContentType": "text/xml",
+      "ContentLength": "59",
+      "ContentID": "123456789012",
+      "ObjectID": "1",
+      "ObjectData": {
+        "County": "WALWORTH",
+        "ListingID": "9876543",
+        "ListingStatus": "Active",
+        "PropItemNumber": "1",
+        "PropMediaBytes": "883301",
+        "PropMediaCaption": "Bodie State Historic Park",
+        "PropMediaCreatedTimestamp": "2020-03-03 19:55:32",
+        "PropMediaDescription": "",
+        "PropMediaDisplayOrder": "",
+        "PropMediaExternalKey": "",
+        "PropMediaFileName": "https://images.pexels.com/photos/2183521/pexels-photo-2183521.jpeg",
+        "PropMediaKey": "987654321098",
+        "PropMediaModificationTimestamp": "2020-04-08 00:58:15",
+        "PropMediaSize": "SAMPLE_Full",
+        "PropMediaSubSystemLocale": "SAMPLE_PICTURE",
+        "PropMediaSystemLocale": "SAMPLE",
+        "PropMediaType": "Photo",
+        "PropMediaURL": "https://images.pexels.com/photos/2183521/pexels-photo-2183521.jpeg",
+        "PropMediaVendorID": "",
+        "PropMediaVendorIDType": "",
+        "PropMediaVendorName": "",
+        "PropMimeType": "IMAGE_JPEG",
+        "PropObjectKey": "123456789012"
+      }
+    },
+    "data": "<RETS ReplyCode=\"0\" ReplyText=\"V2.6.0 761: Success\"></RETS>"
+  },
+  {
+    "headers": {
+      "ContentType": "text/xml",
+      "ContentLength": "59",
+      "ContentID": "234567890123",
+      "ObjectID": "1",
+      "ObjectData": {
+        "County": "ROCK",
+        "ListingID": "8765432",
+        "ListingStatus": "Active",
+        "PropItemNumber": "1",
+        "PropMediaBytes": "680387",
+        "PropMediaCaption": "Photo by Luke Stackpoole on Unsplash",
+        "PropMediaCreatedTimestamp": "2020-03-04 12:11:32",
+        "PropMediaDescription": "",
+        "PropMediaDisplayOrder": "",
+        "PropMediaExternalKey": "",
+        "PropMediaFileName": "https://images.unsplash.com/photo-1518780664697-55e3ad937233",
+        "PropMediaKey": "876543210987",
+        "PropMediaModificationTimestamp": "2020-03-04 12:11:32",
+        "PropMediaSize": "SAMPLE_Full",
+        "PropMediaSubSystemLocale": "SAMPLE_PICTURE",
+        "PropMediaSystemLocale": "SAMPLE",
+        "PropMediaType": "Photo",
+        "PropMediaURL": "https://images.unsplash.com/photo-1518780664697-55e3ad937233",
+        "PropMediaVendorID": "",
+        "PropMediaVendorIDType": "",
+        "PropMediaVendorName": "",
+        "PropMimeType": "IMAGE_JPEG",
+        "PropObjectKey": "234567890123"
+      }
+    },
+    "data": "<RETS ReplyCode=\"0\" ReplyText=\"V2.6.0 761: Success\"></RETS>"
+  }
+]

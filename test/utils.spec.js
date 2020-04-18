@@ -45,6 +45,7 @@ const expectedResponse = {
 };
 
 const buff = Buffer.from(helpers.readDataFile('multipart.buf', 'binary'), 'hex');
+const buffXML = Buffer.from(helpers.readDataFile('multipart_xml.buf', 'binary'), 'hex');
 
 describe('Utils', function() {
   afterEach(function() {
@@ -574,6 +575,13 @@ describe('Utils', function() {
       });
     });
 
+    context('when receiving a multipart buffer with xml content', function() {
+      it('generates the correct response', async function() {
+        const result = await utils.ParseMultipartRetsResponse(buffXML, 'simple boundary');
+        expect(result).to.deep.eq(helpers.data.multipartXMLJSON);
+      });
+    });
+
     context('when an error while processing a multipart buffer', function() {
       it('throws an error', async function() {
         const result = await utils.ParseMultipartRetsResponse(buff, 'incorrect boundary').catch(e => e);
@@ -601,6 +609,19 @@ describe('Utils', function() {
         expect(resultWithoutImage).to.deep.eq(helpers.data.multipartJSON);
         expect(resultImages[0].length).to.eq(helpers.readDataFile('image_1.jpg', 'binary').length);
         expect(resultImages[1].length).to.eq(helpers.readDataFile('image_2.jpg', 'binary').length);
+      });
+    });
+
+    context('when a different RETS response', function() {
+      it('processes it anyway', async function() {
+        const xmlResponse = {
+          headers: {
+            'content-type': 'text/xml',
+          },
+          raw: helpers.readDataFile('properties_compact.xml'),
+        };
+        const result = await utils.ParseRetsObjectResponse(xmlResponse);
+        expect(result).to.deep.eq(helpers.readDataFile('properties_compact.json', 'utf8', true));
       });
     });
 
