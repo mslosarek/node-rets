@@ -1,6 +1,6 @@
 {
   "name": "node-rets",
-  "version": "0.2.1",
+  "version": "0.2.2",
   "description": "Simplified RETS client with minimal dependencies",
   "main": "lib/index.js",
   "scripts": {
