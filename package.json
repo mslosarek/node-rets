@@ -2,7 +2,7 @@
   "name": "node-rets",
   "version": "0.2.1",
   "description": "Simplified RETS client with minimal dependencies",
-  "main": "index.js",
+  "main": "lib/index.js",
   "scripts": {
     "test": "mocha --recursive",
     "nyc": "nyc mocha --recursive",
