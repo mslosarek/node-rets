@@ -11,12 +11,12 @@ function readDataFile(filename, encoding, json = false) {
   return content;
 }
 
-function buildLoginResponse(baseUrl = 'https://mockrets.com') {
+function buildLoginResponse(baseUrl = 'https://mockrets.com', memberName = 'Treutel Group') {
   return [
     '<?xml version="1.0" ?>',
     '<RETS ReplyCode="0" ReplyText="V2.6.0 761: Success">',
     '<RETS-RESPONSE>',
-    'MemberName=Treutel Group',
+    (memberName ? `MemberName=${memberName}` : ''),
     'User=username, User:Class:String, 90, 98765',
     'Broker=12345',
     'MetadataVersion=1.2.3456',
@@ -47,7 +47,7 @@ function buildLoginResponse(baseUrl = 'https://mockrets.com') {
     `Update=${baseUrl}/update`,
     '</RETS-RESPONSE>',
     '</RETS>',
-  ].join('\r\n');
+  ].filter(l => l).join('\r\n');
 }
 
 function buildLogoutResponse(includeConnectedTime = true) {
@@ -117,7 +117,10 @@ function addRetsMedataData(nockedRequest) {
   );
 }
 
-function addRetsSearch(nockedRequest, query, options) {
+function addRetsSearch(nockedRequest, query, options, format = 'STANDARD-XML') {
+  const responseFile = format === 'STANDARD-XML' ? 'properties.xml' : 'properties_compact.xml';
+  const contentType = format === 'STANDARD-XML' ? 'text/xml' : 'text/xml';
+
   return nockedRequest
   .get('/search')
   .query({
@@ -126,15 +129,15 @@ function addRetsSearch(nockedRequest, query, options) {
     SearchType: 'Property',
     Class: 'ALL',
     StandardNames: 0,
-    Format: 'STANDARD-XML',
+    Format: format,
     QueryType: 'DMQL2',
     Count: 1,
   })
   .reply(
     200,
-    readDataFile('properties.xml'),
+    readDataFile(responseFile),
     {
-      'Content-Type': 'text/xml',
+      'Content-Type': contentType,
     },
   );
 }

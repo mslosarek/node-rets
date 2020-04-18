@@ -168,54 +168,19 @@ describe('Utils', function() {
     });
   });
 
-  describe('#NormalizeMatcher', function() {
-    context('when passed a string', function() {
-      it('returns a funcion that tests a RegExp', function() {
-        const result = utils.NormalizeMatcher('Hello');
-        expect(result('hello')).to.eq(true);
-        expect(result('with hello in the middle')).to.eq(true);
-        expect(result('does not contain the work')).to.eq(false);
+  describe('#GenerateErrorCode', function() {
+    context('when an error code with a message', function() {
+      it('returns an error with that message', function() {
+        const result = utils.GenerateErrorCode('20500', 'Random Error Message');
+        expect(result).to.be.an('error');
+        expect(result.message).to.eq('20500: Random Error Message');
       });
     });
-
-    context('when passed a RegExp', function() {
-      it('returns a funcion that tests the RegExp', function() {
-        const result = utils.NormalizeMatcher(/^Hello$/);
-        expect(result('hello')).to.eq(false);
-        expect(result('Hello')).to.eq(true);
-        expect(result('Hello World')).to.eq(false);
-      });
-    });
-
-    context('when passed a function', function() {
-      it('returns a function that test the key', function() {
-        const result = utils.NormalizeMatcher(key => key.length > 5);
-        expect(result('hello')).to.eq(false);
-        expect(result('Hello World')).to.eq(true);
-      });
-    });
-
-    context('when passed a number', function() {
-      it('returns a function that performs a strict comparison key', function() {
-        const result = utils.NormalizeMatcher(5);
-        expect(result(5)).to.eq(true);
-        expect(result('5')).to.eq(false);
-      });
-    });
-  });
-
-  describe('#FindNested', function() {
-    context('when a nested object is found', function() {
-      it('returns the nested object', function() {
-        const result = utils.FindNested(helpers.data.propertyJSON, 'TotalSqFt');
-        expect(result).to.eq('1991.00');
-      });
-    });
-
-    context('when a nested object is not found', function() {
-      it('returns null', function() {
-        const result = utils.FindNested(helpers.data.propertyJSON, 'UnknownElementKey');
-        expect(result).to.eq(null);
+    context('when an error code without a message', function() {
+      it('returns an error with that message', function() {
+        const result = utils.GenerateErrorCode('20500');
+        expect(result).to.be.an('error');
+        expect(result.message).to.eq('20500: Invalid Resource');
       });
     });
   });
@@ -382,7 +347,7 @@ describe('Utils', function() {
     context('when processing query xml', function() {
       it('generates a json object', async function() {
         const result = await utils.ParseRetsQuery(helpers.data.propertiesXML, 'Property');
-        expect(result).to.deep.eq(helpers.data.propertiesJSON);
+        expect(result).to.deep.eq(helpers.readDataFile('properties_flat.json', 'utf8', true));
       });
     });
 
@@ -399,20 +364,8 @@ describe('Utils', function() {
       it('returns the REData element', async function() {
         const result = await utils.ParseRetsQuery(queryContentSimplified, 'UnknownType');
         expect(result.Objects[0]).to.deep.eq({
-          Properties: {
-            AllProperty: {
-              Property: {
-                Address: {
-                  DisplayStreetNumber: '410',
-                },
-                Lot: {
-                  Description: {
-                    LotAcreage: '1.36',
-                  },
-                },
-              },
-            },
-          },
+          DisplayStreetNumber: '410',
+          LotAcreage: '1.36',
         });
       });
     });
@@ -439,28 +392,27 @@ describe('Utils', function() {
   });
 
   describe('#ParseRetsResponseXML', function() {
-    const xmlContent = `<?xml version="1.0" ?>
-    <RETS ReplyCode="0" ReplyText="V2.6.0 761: Success">
-      <REData>
-        <Properties>
-          <AllProperty>
-            <Property>
-              <Address>
-                <DisplayStreetNumber>410</DisplayStreetNumber>
-              </Address>
-              <Lot>
-                <Description>
-                  <LotAcreage>1.36</LotAcreage>
-                </Description>
-              </Lot>
-            </Property>
-          </AllProperty>
-        </Properties>
-      </REData>
-    </RETS>`;
-
     context('when valid XML content', function() {
       it('returns an valid object', async function() {
+        const xmlContent = `<?xml version="1.0" ?>
+        <RETS ReplyCode="0" ReplyText="V2.6.0 761: Success">
+          <REData>
+            <Properties>
+              <AllProperty>
+                <Property>
+                  <Address>
+                    <DisplayStreetNumber>410</DisplayStreetNumber>
+                  </Address>
+                  <Lot>
+                    <Description>
+                      <LotAcreage>1.36</LotAcreage>
+                    </Description>
+                  </Lot>
+                </Property>
+              </AllProperty>
+            </Properties>
+          </REData>
+        </RETS>`;
         const result = await utils.ParseRetsResponseXML(xmlContent);
         expect(result).to.deep.eq({
           $: {
@@ -487,12 +439,82 @@ describe('Utils', function() {
       });
     });
 
+    context('when RETS-RESPONSE is in body', function() {
+      it('processes the body as key value objects', async function() {
+        const xmlContent = helpers.buildLoginResponse();
+        const result = await utils.ParseRetsResponseXML(xmlContent);
+        expect(result).to.deep.eq({
+          $: {
+            ReplyCode: '0',
+            ReplyText: 'V2.6.0 761: Success',
+          },
+          'RETS-RESPONSE': {
+            MemberName: 'Treutel Group',
+            User: 'username, User:Class:String, 90, 98765',
+            Broker: '12345',
+            MetadataVersion: '1.2.3456',
+            MetadataTimestamp: '2020-04-04T18:45:19.324Z',
+            MinMetadataTimestamp: '2000-04-04T18:45:19.324Z',
+            OfficeList: '54321',
+            TimeoutSeconds: '1800',
+            Info: 'TimeoutSeconds;1800',
+            Action: 'https://mockrets.com/get?Command',
+            ChangePassword: 'https://mockrets.com/changepassword',
+            Search: 'https://mockrets.com/search',
+            GetMetadata: 'https://mockrets.com/getmetadata',
+            Logout: 'https://mockrets.com/logout',
+            GetObject: 'https://mockrets.com/getobject',
+            Login: 'https://mockrets.com/login',
+            LoginComplete: 'https://mockrets.com/logincomplete',
+            Get: 'https://mockrets.com/get',
+            Update: 'https://mockrets.com/update',
+          },
+        });
+      });
+    });
+
+    context('when multiple rows of compact format', function() {
+      it('should return an array of objects', async function() {
+        const xmlContent = `<?xml version="1.0" ?>
+        <RETS ReplyCode="0" ReplyText="V2.6.0 761: Success">
+          <COUNT Records="1"/>
+          <DELIMITER value="2C" />
+          <COLUMNS>,Col1,Col2</COLUMNS>
+          <DATA>,R1V1,R1V2</DATA>
+          <DATA>,R2V1,R2V2</DATA>
+          <MAXROWS />
+        </RETS>`;
+        const result = await utils.ParseRetsResponseXML(xmlContent);
+        expect(result.DATA).to.deep.eq([
+          { Col1: 'R1V1', Col2: 'R1V2' },
+          { Col1: 'R2V1', Col2: 'R2V2' },
+        ]);
+      });
+    });
+
+    context('when single row of compact format', function() {
+      it('should return an array of objects', async function() {
+        const xmlContent = `<?xml version="1.0" ?>
+        <RETS ReplyCode="0" ReplyText="V2.6.0 761: Success">
+          <COUNT Records="1"/>
+          <DELIMITER value="2C" />
+          <COLUMNS>,Col1,Col2</COLUMNS>
+          <DATA>,R1V1,R1V2</DATA>
+          <MAXROWS />
+        </RETS>`;
+        const result = await utils.ParseRetsResponseXML(xmlContent);
+        expect(result.DATA).to.deep.eq([
+          { Col1: 'R1V1', Col2: 'R1V2' },
+        ]);
+      });
+    });
+
     context('when no RETS element exist', function() {
       it('returns the root element', async function() {
         const xmlContentSimple = `<?xml version="1.0" ?>
         <TopLevel><Name>Sample Name</Name></TopLevel>`;
 
-        const result = await utils.ParseRetsResponseXML(xmlContentSimple).catch(e => e);
+        const result = await utils.ParseRetsResponseXML(xmlContentSimple);
         expect(result).to.deep.eq({
           TopLevel: {
             Name: 'Sample Name',
@@ -522,7 +544,8 @@ describe('Utils', function() {
         </RETS>`;
         const result = await utils.ParseRetsResponseXML(errorXML).catch(e => e);
         expect(result).to.be.an('error');
-        expect(result.message).to.match(/20502: Invalid Identifier/);
+        expect(result.message).to.match(/20502/);
+        expect(result.message).to.match(/Unknown id for METADATA-CLASS: PropertySample/);
       });
     });
 

@@ -109,6 +109,18 @@ describe('RETSClient', function() {
       });
     });
 
+    context('logged in member name not included', function() {
+      it('only logs logged in', async function() {
+        nock.disableNetConnect();
+        helpers.retsLogin(configuration.loginUrl, helpers.buildLoginResponse(undefined, null), true);
+
+        const client = new RETSClient(configuration);
+        await client.login();
+        expect(log.info.firstCall.args[0]).to.match(/Logged In/);
+        expect(log.info.firstCall.args[0]).to.not.match(/As/);
+      });
+    });
+
     context('when a 401 error is return', function() {
       it('throws an error with the code', async function() {
         nock.disableNetConnect();
@@ -121,6 +133,7 @@ describe('RETSClient', function() {
         expect(result).to.be.an('error');
       });
     });
+
 
     context('when a RETS-Session-ID is returned in set-cookie', function() {
       it('sets the sessionId on the client', async function() {
@@ -234,7 +247,7 @@ describe('RETSClient', function() {
         const client = new RETSClient(configuration);
 
         await client.login();
-        const result = await client.logout();
+        await client.logout();
         expect(infoStub.getCall(1).args[0]).to.match(/Connected Time/);
       });
     });
@@ -250,8 +263,8 @@ describe('RETSClient', function() {
         const client = new RETSClient(configuration);
 
         await client.login();
-        const result = await client.logout();
-        expect(infoStub.getCall(1).args[0]).to.match(/Sign Off Message/);
+        await client.logout();
+        expect(infoStub.getCall(1).args[0]).to.match(/Logged Out/);
       });
     });
   });
@@ -334,11 +347,11 @@ describe('RETSClient', function() {
 
         nock.disableNetConnect();
         const nockedRequest = helpers.retsLogin(configuration.loginUrl);
-        helpers.addRetsSearch(nockedRequest, query, options);
+        helpers.addRetsSearch(nockedRequest, query, options, 'COMPACT');
 
         const client = new RETSClient(configuration);
         const result = await client.search('Property', 'ALL', query, options);
-        expect(result).to.deep.eq(helpers.readDataFile('properties.json', 'utf8', true));
+        expect(result).to.deep.eq(helpers.readDataFile('properties_flat.json', 'utf8', true));
       });
     });
 
@@ -352,7 +365,7 @@ describe('RETSClient', function() {
 
         nock.disableNetConnect();
         const nockedRequest = helpers.retsLogin(configuration.loginUrl);
-        helpers.addRetsSearch(nockedRequest, query, options);
+        helpers.addRetsSearch(nockedRequest, query, options, 'COMPACT');
 
         const client = new RETSClient(configuration);
         const spy = sinon.spy(client, 'login');

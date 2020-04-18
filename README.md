@@ -7,7 +7,7 @@
 
 ## About
 
-A node library to connect to Real Estate Transaction Standard (RETS) server. This is highly influenced by the [rets-client by sbruno81](https://github.com/sbruno81/rets-client) but without any native bindings. 
+A node library to connect to Real Estate Transaction Standard (RETS) server. This is highly influenced by the [rets-client by sbruno81](https://github.com/sbruno81/rets-client) but without any native bindings.
 
 ### Limitations
 
@@ -42,8 +42,7 @@ const classMetadataProperty = await client.metadata('CLASS', 'Property');
 const query = '(ModificationTimestamp=2020-03-17T01:19:11+)'; // DMQL2 query
 const resourceType = classMetadataProperty.Resource;
 const classType = classMetadataProperty.Objects[0].ClassName;
-const flattenResult = true;
-const searchProperties = await client.search(resourceType, classType, query, { limit: 1, offset: 1 }, flattenResult);
+const searchProperties = await client.search(resourceType, classType, query, { limit: 1, offset: 1 });
 ```
 
 ### GetObject
