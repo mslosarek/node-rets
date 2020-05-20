@@ -334,6 +334,25 @@ describe('RETSClient', function() {
         expect(result.message).to.eq('Invalid Resource Type: Unknown_Resource_Type');
       });
     });
+
+    context('when an the alternate metadata contents are returned', function() {
+      it('throws an error', async function() {
+        nock.disableNetConnect();
+        const nockedRequest = helpers.retsLogin(configuration.loginUrl);
+        helpers.addRetsMedataData(
+          nockedRequest,
+          {
+            Type: 'METADATA-LOOKUP_TYPE',
+            ID: 'FireplaceFuel',
+          },
+          helpers.readDataFile('metadata_resource_alternate.xml'),
+        );
+
+        const client = new RETSClient(configuration);
+        const result = await client.metadata('LOOKUP_TYPE', 'FireplaceFuel');
+        expect(result.Objects.length).to.eq(8);
+      });
+    });
   });
 
   describe('#search', function() {
@@ -374,6 +393,27 @@ describe('RETSClient', function() {
         await client.search('Property', 'ALL', query, options);
 
         expect(spy.callCount).to.eq(1);
+      });
+    });
+
+    context('when CREA standard xml', function() {
+      it('parses the xml correctly', async function() {
+        const query = '(ModificationTimestamp=2020-03-17T01:19:11+)';
+        const options = {
+          Limit: 1,
+          Offset: 1,
+        };
+
+        nock.disableNetConnect();
+        const nockedRequest = helpers.retsLogin(configuration.loginUrl);
+        helpers.addRetsSearch(nockedRequest, query, options, 'STANDARD-XML', helpers.readDataFile('property_crea_standard.xml'));
+
+        const client = new RETSClient(configuration);
+        const result = await client.search('Property', 'ALL', query, options, 'STANDARD-XML');
+
+        // console.log(JSON.stringify(result, null, 2));
+        expect(result.Objects.length).to.eq(1);
+        expect(result.Objects[0]).to.deep.eq(helpers.readDataFile('property_crea_standard.json', 'utf8', true));
       });
     });
   });

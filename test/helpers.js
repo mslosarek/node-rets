@@ -100,26 +100,33 @@ function addRetsLogout(nockedRequest, includeConnectedTime = true) {
   .reply(200, buildLogoutResponse(includeConnectedTime));
 }
 
-function addRetsMedataData(nockedRequest) {
+function addRetsMedataData(nockedRequest, params = {}, content = null) {
+  const xmlContent = content || readDataFile('metadata_class_property.xml');
+
   return nockedRequest
   .get('/getmetadata')
   .query({
-    Type: 'METADATA-CLASS',
-    ID: 'Property',
-    Format: 'STANDARD-XML',
+    ...{
+      Type: 'METADATA-CLASS',
+      ID: 'Property',
+      Format: 'STANDARD-XML',
+    },
+    ...params,
   })
   .reply(
     200,
-    readDataFile('metadata_class_property.xml'),
+    xmlContent,
     {
       'Content-Type': 'text/xml',
     },
   );
 }
 
-function addRetsSearch(nockedRequest, query, options, format = 'STANDARD-XML') {
+function addRetsSearch(nockedRequest, query, options, format = 'STANDARD-XML', response = null) {
   const responseFile = format === 'STANDARD-XML' ? 'properties.xml' : 'properties_compact.xml';
   const contentType = format === 'STANDARD-XML' ? 'text/xml' : 'text/xml';
+
+  const responseBody = response || readDataFile(responseFile);
 
   return nockedRequest
   .get('/search')
@@ -135,7 +142,7 @@ function addRetsSearch(nockedRequest, query, options, format = 'STANDARD-XML') {
   })
   .reply(
     200,
-    readDataFile(responseFile),
+    responseBody,
     {
       'Content-Type': contentType,
     },
