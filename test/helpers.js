@@ -122,9 +122,11 @@ function addRetsMedataData(nockedRequest, params = {}, content = null) {
   );
 }
 
-function addRetsSearch(nockedRequest, query, options, format = 'STANDARD-XML') {
+function addRetsSearch(nockedRequest, query, options, format = 'STANDARD-XML', response = null) {
   const responseFile = format === 'STANDARD-XML' ? 'properties.xml' : 'properties_compact.xml';
   const contentType = format === 'STANDARD-XML' ? 'text/xml' : 'text/xml';
+
+  const responseBody = response || readDataFile(responseFile);
 
   return nockedRequest
   .get('/search')
@@ -140,7 +142,7 @@ function addRetsSearch(nockedRequest, query, options, format = 'STANDARD-XML') {
   })
   .reply(
     200,
-    readDataFile(responseFile),
+    responseBody,
     {
       'Content-Type': contentType,
     },

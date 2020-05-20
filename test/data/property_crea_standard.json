@@ -1,0 +1,588 @@
+
+{
+  "$": {
+    "ID": "20270724",
+    "LastUpdated": "Thu, 21 Feb 2019 23:40:21 GMT"
+  },
+  "ListingID": "30707930",
+  "AgentDetails": [
+    {
+      "$": {
+        "ID": "1500972"
+      },
+      "Name": "DICK MACLEOD",
+      "Phones": {
+        "Phone": {
+          "_": "(905) 374-0241",
+          "$": {
+            "ContactType": "Business",
+            "PhoneType": "Fax"
+          }
+        }
+      },
+      "Office": {
+        "$": {
+          "ID": "75310",
+          "LastUpdated": "Thu, 21 Feb 2019 23:40:20 GMT"
+        },
+        "Name": "RE/MAX NIAGARA REALTY LTD,BROKERAGE",
+        "LogoLastUpdated": "2019-02-21 6:40:20 PM",
+        "Address": {
+          "StreetAddress": "5627 MAIN ST",
+          "AddressLine1": "5627 MAIN ST",
+          "City": "Niagara Falls",
+          "Province": "Ontario",
+          "PostalCode": "L2G5Z3"
+        },
+        "Phones": {
+          "Phone": [
+            {
+              "_": "(905) 356-9600",
+              "$": {
+                "ContactType": "Business",
+                "PhoneType": "Telephone"
+              }
+            },
+            {
+              "_": "(905) 374-0241",
+              "$": {
+                "ContactType": "Business",
+                "PhoneType": "Fax"
+              }
+            }
+          ]
+        },
+        "Websites": {
+          "Website": {
+            "_": "https://www.remaxniagara.ca",
+            "$": {
+              "ContactType": "Business",
+              "WebsiteType": "Website"
+            }
+          }
+        },
+        "OrganizationType": "Firm",
+        "Franchisor": "RE/MAX Ontario Atlantic Canada Inc"
+      },
+      "Position": "Salesperson"
+    },
+    {
+      "$": {
+        "ID": "2057195"
+      },
+      "Name": "MACKENZIE MACLEOD",
+      "Phones": {
+        "Phone": [
+          {
+            "_": "(905) 359-3813",
+            "$": {
+              "ContactType": "Business",
+              "PhoneType": "Telephone"
+            }
+          },
+          {
+            "_": "(905) 374-0241",
+            "$": {
+              "ContactType": "Business",
+              "PhoneType": "Fax"
+            }
+          }
+        ]
+      },
+      "Office": {
+        "$": {
+          "ID": "75310",
+          "LastUpdated": "Thu, 21 Feb 2019 23:40:20 GMT"
+        },
+        "Name": "RE/MAX NIAGARA REALTY LTD,BROKERAGE",
+        "LogoLastUpdated": "2019-02-21 6:40:20 PM",
+        "Address": {
+          "StreetAddress": "5627 MAIN ST",
+          "AddressLine1": "5627 MAIN ST",
+          "City": "Niagara Falls",
+          "Province": "Ontario",
+          "PostalCode": "L2G5Z3"
+        },
+        "Phones": {
+          "Phone": [
+            {
+              "_": "(905) 356-9600",
+              "$": {
+                "ContactType": "Business",
+                "PhoneType": "Telephone"
+              }
+            },
+            {
+              "_": "(905) 374-0241",
+              "$": {
+                "ContactType": "Business",
+                "PhoneType": "Fax"
+              }
+            }
+          ]
+        },
+        "Websites": {
+          "Website": {
+            "_": "https://www.remaxniagara.ca",
+            "$": {
+              "ContactType": "Business",
+              "WebsiteType": "Website"
+            }
+          }
+        },
+        "OrganizationType": "Firm",
+        "Franchisor": "RE/MAX Ontario Atlantic Canada Inc"
+      },
+      "Position": "Salesperson"
+    }
+  ],
+  "Board": "114",
+  "Business": {
+    "Franchise": ""
+  },
+  "Building": {
+    "BathroomTotal": "5",
+    "BedroomsTotal": "6",
+    "BedroomsAboveGround": "6",
+    "ArchitecturalStyle": "2 Level",
+    "BasementDevelopment": "Unfinished",
+    "BasementType": "Full (Unfinished)",
+    "ConstructionMaterial": "Wood frame",
+    "ConstructionStyleAttachment": "Detached",
+    "CoolingType": "Air Conditioned, Central air conditioning",
+    "ExteriorFinish": "Wood",
+    "FireplaceFuel": "Wood",
+    "FireplacePresent": "True",
+    "FireplaceType": "Other - See remarks",
+    "FoundationType": "Poured Concrete",
+    "HeatingFuel": "Natural gas",
+    "HeatingType": "Forced air",
+    "Rooms": {
+      "Room": [
+        {
+          "Type": "3pc Bathroom",
+          "Width": "",
+          "Length": "",
+          "Level": "Second level",
+          "Dimension": "6\\' \\'\\' x 9\\' \\'\\'"
+        },
+        {
+          "Type": "3pc Bathroom",
+          "Width": "",
+          "Length": "",
+          "Level": "Second level",
+          "Dimension": "6\\' \\'\\' x 8\\' \\'\\'"
+        },
+        {
+          "Type": "Bedroom",
+          "Width": "",
+          "Length": "",
+          "Level": "Second level",
+          "Dimension": "17\\' 7\\'\\' x 11\\' 4\\'\\'"
+        },
+        {
+          "Type": "Bedroom",
+          "Width": "",
+          "Length": "",
+          "Level": "Second level",
+          "Dimension": "10\\' 0\\'\\' x 9\\' 5\\'\\'"
+        },
+        {
+          "Type": "Bedroom",
+          "Width": "",
+          "Length": "",
+          "Level": "Second level",
+          "Dimension": "17\\' 3\\'\\' x 8\\' 8\\'\\'"
+        },
+        {
+          "Type": "Bedroom",
+          "Width": "",
+          "Length": "",
+          "Level": "Second level",
+          "Dimension": "18\\' 10\\'\\' x 9\\' 2\\'\\'"
+        },
+        {
+          "Type": "Bedroom",
+          "Width": "",
+          "Length": "",
+          "Level": "Second level",
+          "Dimension": "14\\' 6\\'\\' x 11\\' 10\\'\\'"
+        },
+        {
+          "Type": "Master bedroom",
+          "Width": "",
+          "Length": "",
+          "Level": "Second level",
+          "Dimension": "14\\' 6\\'\\' x 11\\' 5\\'\\'"
+        },
+        {
+          "Type": "3pc Bathroom",
+          "Width": "",
+          "Length": "",
+          "Level": "Second level",
+          "Dimension": ""
+        },
+        {
+          "Type": "3pc Bathroom",
+          "Width": "",
+          "Length": "",
+          "Level": "Second level",
+          "Dimension": ""
+        },
+        {
+          "Type": "2pc Bathroom",
+          "Width": "",
+          "Length": "",
+          "Level": "Ground level",
+          "Dimension": ""
+        },
+        {
+          "Type": "Sunroom",
+          "Width": "",
+          "Length": "",
+          "Level": "Ground level",
+          "Dimension": "14\\' 8\\'\\' x 14\\' 3\\'\\'"
+        },
+        {
+          "Type": "Den",
+          "Width": "",
+          "Length": "",
+          "Level": "Ground level",
+          "Dimension": "21\\' 6\\'\\' x 14\\' 4\\'\\'"
+        },
+        {
+          "Type": "Great Room",
+          "Width": "",
+          "Length": "",
+          "Level": "Ground level",
+          "Dimension": "31\\' 5\\'\\' x 21\\' 4\\'\\'"
+        },
+        {
+          "Type": "Dining room",
+          "Width": "",
+          "Length": "",
+          "Level": "Ground level",
+          "Dimension": "14\\' 9\\'\\' x 14\\' 4\\'\\'"
+        },
+        {
+          "Type": "Eat in kitchen",
+          "Width": "",
+          "Length": "",
+          "Level": "Ground level",
+          "Dimension": "20\\' 9\\'\\' x 11\\' 4\\'\\'"
+        }
+      ]
+    },
+    "SizeInterior": "4000 sqft",
+    "StoriesTotal": "2",
+    "Type": "House",
+    "UtilityWater": "Municipal water"
+  },
+  "Land": {
+    "SizeTotalText": "2 - 4.99 acres",
+    "SizeFrontage": "221 ft",
+    "Acreage": "true",
+    "FenceTotal": "",
+    "Sewer": "Septic System",
+    "SizeDepth": "876 ft",
+    "SoilType": "Clay"
+  },
+  "Address": {
+    "StreetAddress": "2331 STANILAND PARK Road",
+    "AddressLine1": "2331 STANILAND PARK Road",
+    "StreetNumber": "2331",
+    "StreetName": "STANILAND PARK",
+    "StreetSuffix": "Road",
+    "City": "Fort Erie",
+    "Province": "Ontario",
+    "PostalCode": "L0S1N0",
+    "Country": "Canada",
+    "Subdivision": "334 - Crystal Beach / Ridgeway",
+    "Longitude": "-79.003981",
+    "Latitude": "42.87344"
+  },
+  "AlternateURL": {
+    "VideoLink": "https://youtu.be/X8CDvTAyY9o"
+  },
+  "EquipmentType": "None",
+  "Features": "Beach, Crushed stone driveway, Carpet Free, Country residential, Automatic Garage Door Opener",
+  "OwnershipType": "Freehold",
+  "ParkingSpaces": {
+    "Parking": [
+      {
+        "Name": "Attached garage"
+      },
+      {
+        "Name": "Detached garage"
+      },
+      {
+        "Name": "Gravel"
+      }
+    ]
+  },
+  "ParkingSpaceTotal": "14",
+  "Photo": {
+    "PropertyPhoto": [
+      {
+        "SequenceId": "1",
+        "LastUpdated": "22/01/2019 05:17:29 PM",
+        "PhotoLastUpdated": "Tue, 22 Jan 2019 22:17:29 GMT"
+      },
+      {
+        "SequenceId": "2",
+        "LastUpdated": "22/01/2019 05:17:29 PM",
+        "PhotoLastUpdated": "Tue, 22 Jan 2019 22:17:29 GMT"
+      },
+      {
+        "SequenceId": "3",
+        "LastUpdated": "22/01/2019 05:17:29 PM",
+        "PhotoLastUpdated": "Tue, 22 Jan 2019 22:17:29 GMT"
+      },
+      {
+        "SequenceId": "4",
+        "LastUpdated": "22/01/2019 05:17:29 PM",
+        "PhotoLastUpdated": "Tue, 22 Jan 2019 22:17:29 GMT"
+      },
+      {
+        "SequenceId": "5",
+        "LastUpdated": "22/01/2019 05:17:29 PM",
+        "PhotoLastUpdated": "Tue, 22 Jan 2019 22:17:29 GMT"
+      },
+      {
+        "SequenceId": "6",
+        "LastUpdated": "22/01/2019 05:17:29 PM",
+        "PhotoLastUpdated": "Tue, 22 Jan 2019 22:17:29 GMT"
+      },
+      {
+        "SequenceId": "7",
+        "LastUpdated": "22/01/2019 05:17:29 PM",
+        "PhotoLastUpdated": "Tue, 22 Jan 2019 22:17:29 GMT"
+      },
+      {
+        "SequenceId": "8",
+        "LastUpdated": "22/01/2019 05:17:29 PM",
+        "PhotoLastUpdated": "Tue, 22 Jan 2019 22:17:29 GMT"
+      },
+      {
+        "SequenceId": "9",
+        "LastUpdated": "22/01/2019 05:17:29 PM",
+        "PhotoLastUpdated": "Tue, 22 Jan 2019 22:17:29 GMT"
+      },
+      {
+        "SequenceId": "10",
+        "LastUpdated": "22/01/2019 05:17:29 PM",
+        "PhotoLastUpdated": "Tue, 22 Jan 2019 22:17:29 GMT"
+      },
+      {
+        "SequenceId": "11",
+        "LastUpdated": "22/01/2019 05:17:29 PM",
+        "PhotoLastUpdated": "Tue, 22 Jan 2019 22:17:29 GMT"
+      },
+      {
+        "SequenceId": "12",
+        "LastUpdated": "22/01/2019 05:17:29 PM",
+        "PhotoLastUpdated": "Tue, 22 Jan 2019 22:17:29 GMT"
+      },
+      {
+        "SequenceId": "13",
+        "LastUpdated": "22/01/2019 05:17:29 PM",
+        "PhotoLastUpdated": "Tue, 22 Jan 2019 22:17:29 GMT"
+      },
+      {
+        "SequenceId": "14",
+        "LastUpdated": "22/01/2019 05:17:29 PM",
+        "PhotoLastUpdated": "Tue, 22 Jan 2019 22:17:29 GMT"
+      },
+      {
+        "SequenceId": "15",
+        "LastUpdated": "22/01/2019 05:17:29 PM",
+        "PhotoLastUpdated": "Tue, 22 Jan 2019 22:17:29 GMT"
+      },
+      {
+        "SequenceId": "16",
+        "LastUpdated": "22/01/2019 05:17:29 PM",
+        "PhotoLastUpdated": "Tue, 22 Jan 2019 22:17:29 GMT"
+      },
+      {
+        "SequenceId": "17",
+        "LastUpdated": "22/01/2019 05:17:29 PM",
+        "PhotoLastUpdated": "Tue, 22 Jan 2019 22:17:29 GMT"
+      },
+      {
+        "SequenceId": "18",
+        "LastUpdated": "22/01/2019 05:17:29 PM",
+        "PhotoLastUpdated": "Tue, 22 Jan 2019 22:17:29 GMT"
+      },
+      {
+        "SequenceId": "19",
+        "LastUpdated": "22/01/2019 05:17:29 PM",
+        "PhotoLastUpdated": "Tue, 22 Jan 2019 22:17:29 GMT"
+      },
+      {
+        "SequenceId": "20",
+        "LastUpdated": "22/01/2019 05:17:29 PM",
+        "PhotoLastUpdated": "Tue, 22 Jan 2019 22:17:29 GMT"
+      },
+      {
+        "SequenceId": "21",
+        "LastUpdated": "22/01/2019 05:17:29 PM",
+        "PhotoLastUpdated": "Tue, 22 Jan 2019 22:17:29 GMT"
+      },
+      {
+        "SequenceId": "22",
+        "LastUpdated": "22/01/2019 05:17:29 PM",
+        "PhotoLastUpdated": "Tue, 22 Jan 2019 22:17:29 GMT"
+      },
+      {
+        "SequenceId": "23",
+        "LastUpdated": "22/01/2019 05:17:29 PM",
+        "PhotoLastUpdated": "Tue, 22 Jan 2019 22:17:29 GMT"
+      },
+      {
+        "SequenceId": "24",
+        "LastUpdated": "22/01/2019 05:17:29 PM",
+        "PhotoLastUpdated": "Tue, 22 Jan 2019 22:17:29 GMT"
+      },
+      {
+        "SequenceId": "25",
+        "LastUpdated": "22/01/2019 05:17:29 PM",
+        "PhotoLastUpdated": "Tue, 22 Jan 2019 22:17:29 GMT"
+      },
+      {
+        "SequenceId": "26",
+        "LastUpdated": "22/01/2019 05:17:29 PM",
+        "PhotoLastUpdated": "Tue, 22 Jan 2019 22:17:29 GMT"
+      },
+      {
+        "SequenceId": "27",
+        "LastUpdated": "22/01/2019 05:17:29 PM",
+        "PhotoLastUpdated": "Tue, 22 Jan 2019 22:17:29 GMT"
+      },
+      {
+        "SequenceId": "28",
+        "LastUpdated": "22/01/2019 05:17:29 PM",
+        "PhotoLastUpdated": "Tue, 22 Jan 2019 22:17:29 GMT"
+      },
+      {
+        "SequenceId": "29",
+        "LastUpdated": "22/01/2019 05:17:29 PM",
+        "PhotoLastUpdated": "Tue, 22 Jan 2019 22:17:29 GMT"
+      },
+      {
+        "SequenceId": "30",
+        "LastUpdated": "22/01/2019 05:17:29 PM",
+        "PhotoLastUpdated": "Tue, 22 Jan 2019 22:17:29 GMT"
+      },
+      {
+        "SequenceId": "31",
+        "LastUpdated": "22/01/2019 05:17:29 PM",
+        "PhotoLastUpdated": "Tue, 22 Jan 2019 22:17:29 GMT"
+      },
+      {
+        "SequenceId": "32",
+        "LastUpdated": "22/01/2019 05:17:29 PM",
+        "PhotoLastUpdated": "Tue, 22 Jan 2019 22:17:29 GMT"
+      },
+      {
+        "SequenceId": "33",
+        "LastUpdated": "22/01/2019 05:17:29 PM",
+        "PhotoLastUpdated": "Tue, 22 Jan 2019 22:17:29 GMT"
+      },
+      {
+        "SequenceId": "34",
+        "LastUpdated": "22/01/2019 05:17:29 PM",
+        "PhotoLastUpdated": "Tue, 22 Jan 2019 22:17:29 GMT"
+      },
+      {
+        "SequenceId": "35",
+        "LastUpdated": "22/01/2019 05:17:29 PM",
+        "PhotoLastUpdated": "Tue, 22 Jan 2019 22:17:29 GMT"
+      },
+      {
+        "SequenceId": "36",
+        "LastUpdated": "22/01/2019 05:17:29 PM",
+        "PhotoLastUpdated": "Tue, 22 Jan 2019 22:17:29 GMT"
+      },
+      {
+        "SequenceId": "37",
+        "LastUpdated": "22/01/2019 05:17:29 PM",
+        "PhotoLastUpdated": "Tue, 22 Jan 2019 22:17:29 GMT"
+      },
+      {
+        "SequenceId": "38",
+        "LastUpdated": "22/01/2019 05:17:29 PM",
+        "PhotoLastUpdated": "Tue, 22 Jan 2019 22:17:29 GMT"
+      },
+      {
+        "SequenceId": "39",
+        "LastUpdated": "22/01/2019 05:17:29 PM",
+        "PhotoLastUpdated": "Tue, 22 Jan 2019 22:17:29 GMT"
+      },
+      {
+        "SequenceId": "40",
+        "LastUpdated": "22/01/2019 05:17:29 PM",
+        "PhotoLastUpdated": "Tue, 22 Jan 2019 22:17:29 GMT"
+      },
+      {
+        "SequenceId": "41",
+        "LastUpdated": "22/01/2019 05:17:29 PM",
+        "PhotoLastUpdated": "Tue, 22 Jan 2019 22:17:29 GMT"
+      },
+      {
+        "SequenceId": "42",
+        "LastUpdated": "22/01/2019 05:17:29 PM",
+        "PhotoLastUpdated": "Tue, 22 Jan 2019 22:17:29 GMT"
+      },
+      {
+        "SequenceId": "43",
+        "LastUpdated": "22/01/2019 05:17:29 PM",
+        "PhotoLastUpdated": "Tue, 22 Jan 2019 22:17:29 GMT"
+      },
+      {
+        "SequenceId": "44",
+        "LastUpdated": "22/01/2019 05:17:29 PM",
+        "PhotoLastUpdated": "Tue, 22 Jan 2019 22:17:29 GMT"
+      },
+      {
+        "SequenceId": "45",
+        "LastUpdated": "22/01/2019 05:17:29 PM",
+        "PhotoLastUpdated": "Tue, 22 Jan 2019 22:17:29 GMT"
+      },
+      {
+        "SequenceId": "46",
+        "LastUpdated": "22/01/2019 05:17:29 PM",
+        "PhotoLastUpdated": "Tue, 22 Jan 2019 22:17:29 GMT"
+      },
+      {
+        "SequenceId": "47",
+        "LastUpdated": "22/01/2019 05:17:29 PM",
+        "PhotoLastUpdated": "Tue, 22 Jan 2019 22:17:29 GMT"
+      },
+      {
+        "SequenceId": "48",
+        "LastUpdated": "22/01/2019 05:17:29 PM",
+        "PhotoLastUpdated": "Tue, 22 Jan 2019 22:17:29 GMT"
+      },
+      {
+        "SequenceId": "49",
+        "LastUpdated": "22/01/2019 05:17:29 PM",
+        "PhotoLastUpdated": "Tue, 22 Jan 2019 22:17:29 GMT"
+      }
+    ]
+  },
+  "PoolType": "Inground pool",
+  "Price": "1899900.00",
+  "PropertyType": "Single Family",
+  "PublicRemarks": "One of a kind !! over 4 acre waterfront estate on the shores of Lake Erie. exceptionally well maintained 4,000 square foot year round residence boasting 6 bedrooms, 4 1/2 baths in the main house plus a bunkie with separate living quarters and another full bath. There are 3 fireplaces, a massive great room modern kitchen, sun room, dining room, office and butlers pantry on the main level. The manicured grounds surround the heated inground pool overlooking the sand beach. This a must see property !! (id:7434)",
+  "RentalEquipmentType": "None",
+  "TransactionType": "For sale",
+  "UtilitiesAvailable": {
+    "Utility": {
+      "Type": "Water",
+      "Description": "Available"
+    }
+  },
+  "ViewType": "View, View of water",
+  "WaterFrontType": "Waterfront",
+  "ZoningDescription": "ER/H"
+}

@@ -355,14 +355,14 @@ describe('Utils', function() {
 
     context('when processing query xml', function() {
       it('generates a json object', async function() {
-        const result = await utils.ParseRetsQuery(helpers.data.propertiesXML, 'Property');
+        const result = await utils.ParseRetsQuery(helpers.data.propertiesXML);
         expect(result).to.deep.eq(helpers.readDataFile('properties_flat.json', 'utf8', true));
       });
     });
 
     context('when a single object', function() {
       it('generates an array', async function() {
-        const result = await utils.ParseRetsQuery(queryContentSimplified, 'Property');
+        const result = await utils.ParseRetsQuery(queryContentSimplified);
         expect(result.Objects).to.be.an('array');
         expect(result.Objects).to.have.lengthOf(1);
         expect(result).not.to.have.property('TotalCount');
@@ -371,7 +371,7 @@ describe('Utils', function() {
 
     context('when it the nested property can not be found', function() {
       it('returns the REData element', async function() {
-        const result = await utils.ParseRetsQuery(queryContentSimplified, 'UnknownType');
+        const result = await utils.ParseRetsQuery(queryContentSimplified);
         expect(result.Objects[0]).to.deep.eq({
           DisplayStreetNumber: '410',
           LotAcreage: '1.36',
@@ -381,7 +381,7 @@ describe('Utils', function() {
 
     context('when pass in flatten', function() {
       it('returns a flatten object', async function() {
-        const result = await utils.ParseRetsQuery(queryContentSimplified, 'Property', true);
+        const result = await utils.ParseRetsQuery(queryContentSimplified, true);
         expect(result.Objects[0]).to.deep.eq({
           DisplayStreetNumber: '410',
           LotAcreage: '1.36',
@@ -389,13 +389,43 @@ describe('Utils', function() {
       });
     });
 
-    context('when not a REData xml', function() {
-      it('returns an empty array', async function() {
-        const result = await utils.ParseRetsQuery(helpers.data.metadataClassXML, 'Property');
-        expect(result).to.deep.eq({
-          Count: 0,
-          Objects: [],
+    context('when flatten is false', function() {
+      it('returns a deep object', async function() {
+        const result = await utils.ParseRetsQuery(queryContentSimplified, false);
+        expect(result.Objects[0]).to.deep.eq({
+          Property: {
+            Address: {
+              DisplayStreetNumber: '410',
+            },
+            Lot: {
+              Description: {
+                LotAcreage: '1.36',
+              },
+            },
+          },
         });
+      });
+    });
+
+    context('when not a REData xml', function() {
+      it('returns the parsed JSON on the response value', async function() {
+        const result = await utils.ParseRetsQuery(helpers.data.metadataClassXML);
+        const parsedXml = await utils.ParseRetsResponseXML(helpers.data.metadataClassXML);
+        expect(result.Response).to.deep.eq(parsedXml);
+      });
+    });
+
+    context('when CREA standard xml', function() {
+      it('returns the parsed JSON on the response value', async function() {
+        const result = await utils.ParseRetsQuery(helpers.readDataFile('property_crea_standard.xml'));
+        expect(result.Objects.length).to.eq(1);
+      });
+    });
+
+    context('when CREA xml with multiple records', function() {
+      it('returns the parsed JSON on the response value', async function() {
+        const result = await utils.ParseRetsQuery(helpers.readDataFile('property_crea_standard_tiny.xml'));
+        expect(result.Objects.length).to.eq(2);
       });
     });
   });

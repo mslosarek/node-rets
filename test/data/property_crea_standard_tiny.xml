@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RETS ReplyCode="0" ReplyText="Operation successful">
+  <COUNT Records="2"></COUNT>
+  <RETS-RESPONSE
+    xmlns="urn:CREA.Search.Property">
+    <Pagination>
+      <TotalRecords>2</TotalRecords>
+      <Limit>100</Limit>
+      <Offset>1</Offset>
+      <TotalPages>1</TotalPages>
+      <RecordsReturned>1</RecordsReturned>
+    </Pagination>
+    <PropertyDetails ID="20270724" LastUpdated="Thu, 21 Feb 2019 23:40:21 GMT">
+      <ListingID>30707930</ListingID>
+    </PropertyDetails>
+    <PropertyDetails ID="20270725" LastUpdated="Thu, 21 Feb 2019 23:40:22 GMT">
+      <ListingID>30707931</ListingID>
+    </PropertyDetails>
+  </RETS-RESPONSE>
+</RETS>
