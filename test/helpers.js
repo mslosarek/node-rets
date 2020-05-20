@@ -100,17 +100,22 @@ function addRetsLogout(nockedRequest, includeConnectedTime = true) {
   .reply(200, buildLogoutResponse(includeConnectedTime));
 }
 
-function addRetsMedataData(nockedRequest) {
+function addRetsMedataData(nockedRequest, params = {}, content = null) {
+  const xmlContent = content || readDataFile('metadata_class_property.xml');
+
   return nockedRequest
   .get('/getmetadata')
   .query({
-    Type: 'METADATA-CLASS',
-    ID: 'Property',
-    Format: 'STANDARD-XML',
+    ...{
+      Type: 'METADATA-CLASS',
+      ID: 'Property',
+      Format: 'STANDARD-XML',
+    },
+    ...params,
   })
   .reply(
     200,
-    readDataFile('metadata_class_property.xml'),
+    xmlContent,
     {
       'Content-Type': 'text/xml',
     },

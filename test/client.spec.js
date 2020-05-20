@@ -334,6 +334,25 @@ describe('RETSClient', function() {
         expect(result.message).to.eq('Invalid Resource Type: Unknown_Resource_Type');
       });
     });
+
+    context('when an the alternate metadata contents are returned', function() {
+      it('throws an error', async function() {
+        nock.disableNetConnect();
+        const nockedRequest = helpers.retsLogin(configuration.loginUrl);
+        helpers.addRetsMedataData(
+          nockedRequest,
+          {
+            Type: 'METADATA-LOOKUP_TYPE',
+            ID: 'FireplaceFuel',
+          },
+          helpers.readDataFile('metadata_resource_alternate.xml'),
+        );
+
+        const client = new RETSClient(configuration);
+        const result = await client.metadata('LOOKUP_TYPE', 'FireplaceFuel');
+        expect(result.Objects.length).to.eq(8);
+      });
+    });
   });
 
   describe('#search', function() {

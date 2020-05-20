@@ -322,6 +322,14 @@ describe('Utils', function() {
         expect(result).to.have.lengthOf(2);
       });
     });
+
+    context('when alternate metadata', function() {
+      it('returns a parsed JSON', async function() {
+        const metadataContent = helpers.readDataFile('metadata_resource_alternate.xml', 'utf8');
+        const result = await utils.ParseRetsMetadata(metadataContent);
+        expect(result.Objects.length).to.eq(8);
+      });
+    });
   });
 
   describe('#ParseRetsQuery', function() {
